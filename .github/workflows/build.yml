@@ -1,30 +1,30 @@
-name: Build binaries
+name: macOS
 
 on:
+  workflow_dispatch:
   push:
+      paths:
+          - "**"
+          - "!.github/**"
+          - ".github/workflows/ci.yml"
+          - "!**.md"
+  
   pull_request:
-  repository_dispatch:
-    types: [run_build]
+      paths:
+          - "**"
+          - "!.github/**"
+          - ".github/workflows/ci.yml"
+          - "!**.md"
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
+    runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v4
     
-    - name: Install Ubuntu requirements
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        echo "No requirements"
-        #sudo apt-get update
-        #sudo apt-get -y install autoconf automake bison flex gcc libelf-dev make texinfo libncurses5-dev patch python subversion wget zlib1g-dev libtool-bin python-dev bzip2 libgmp3-dev pkg-config
-    
-    - name: Install macOS requirements
-      if: matrix.os == 'macos-latest'
+    - name: Install macOS dependencies
       run: |
         echo "No requirements"
         #brew update
@@ -50,7 +50,7 @@ jobs:
       run: |
         tar -zcvf build.tar.gz extractps3iso/extractps3iso makeps3iso/makeps3iso patchps3iso/patchps3iso splitps3iso/splitps3iso
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
-        name: build-${{ steps.slug.outputs.sha8 }}-${{matrix.os}}
+        name: build-${{ steps.slug.outputs.sha8 }}-macOS
         path: build.tar.gz
