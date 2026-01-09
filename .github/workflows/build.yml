@@ -44,7 +44,7 @@ jobs:
 
     - name: Get short SHA
       id: slug
-      run: echo "{name}={sha8::$(echo ${GITHUB_SHA} | cut -c1-8)}" >> $GITHUB_OUTPUT
+      run: echo "{SHORT_SHA}={sha8::$(echo ${GITHUB_SHA} | cut -c1-8)}" >> $GITHUB_OUTPUT
     
     - name: Compress output
       run: |
@@ -52,5 +52,5 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: build-${{ steps.slug.outputs.sha8 }}-macOS
+        name: build-${SHORT_SHA}-macOS
         path: ps3iso-utils.tar.gz
