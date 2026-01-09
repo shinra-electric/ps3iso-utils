@@ -1,5 +1,4 @@
 # PS3 ISO Utilities
-[![License](https://img.shields.io/github/license/bucanero/ps3iso-utils.svg)](./LICENSE)
 
 macOS Arm builds of [Estwald's](https://github.com/Estwald) PS3 ISO utilities:
 
