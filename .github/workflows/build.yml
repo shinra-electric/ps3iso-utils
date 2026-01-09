@@ -44,7 +44,7 @@ jobs:
 
     - name: Get short SHA
       id: slug
-      run: echo "{name}={sha8::$(echo ${GITHUB_SHA} | cut -c1-8)}"
+      run: echo "{name}={sha8::$(echo ${GITHUB_SHA} | cut -c1-8)}" >> $GITHUB_OUTPUT
     
     - name: Compress output
       run: |
